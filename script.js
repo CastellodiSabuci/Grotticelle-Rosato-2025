@@ -72,26 +72,26 @@ function changeLanguage(lang) {
     const googleTranslateCombo = document.querySelector('.goog-te-combo');
     
     if (googleTranslateCombo) {
-        // 1. Attiva la traduzione di Google
+        // 1. Attiva la traduzione
         googleTranslateCombo.value = lang;
         googleTranslateCombo.dispatchEvent(new Event('change'));
         
-        // 2. AGGIORNA LA BANDIERA SUL PULSANTE PRINCIPALE
-        // Cerchiamo l'immagine dentro il pulsante che si trova nel div .flags
+        // 2. Aggiorna la bandiera (come già facevi correttamente)
         const flagButtonImg = document.querySelector('.flags button img');
-        
         if (flagButtonImg && languageFlags[lang]) {
-            // Cambia l'attributo src con il percorso salvato nella mappa languageFlags
             flagButtonImg.src = languageFlags[lang]; 
-            // Opzionale: aggiorna anche l'alt per l'accessibilità
             flagButtonImg.alt = "Lingua: " + lang.toUpperCase();
         }
 
-        // 3. Aggiorna la scritta tecnica "Prodotto in Italia"
+        // 3. Aggiorna la scritta tecnica
         const labelProdotto = document.getElementById('label-prodotto');
         if (labelProdotto) {
             labelProdotto.innerText = traduzioniTecniche[lang] || traduzioniTecniche['it'];
         }
+    } else {
+        // Se il widget non è ancora pronto, riprova dopo mezzo secondo
+        console.log("Widget non ancora pronto, riprovo...");
+        setTimeout(() => changeLanguage(lang), 500);
     }
 
     // 4. Chiude il menu delle bandierine
